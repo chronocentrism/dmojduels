@@ -1,0 +1,13 @@
+Setup notes for now (will probably change when we try to deploy it)
+
+node proxy.js                                       <= To bypass the CORS or whatever
+npx http-server .                                   <= Run the server
+cloudflared tunnel --url http://127.0.0.1:8080      <= Or whatever URL I get from the command above
+node server.js                                      <= Make sure to get the server runnin
+
+
+(we can probably remove either the proxy or the npx http-server . after modifying a bit of code)
+
+
+Ok so now apparently all i need is server and proxy
+But then to tunnel my localhost:8876 too

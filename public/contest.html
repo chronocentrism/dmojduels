@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>DMOJDuels - Contest</title>
+    <link rel="stylesheet" href="contest.css">
+    <link rel="icon" type="image/png" href="img/DDlogo.png">
+    <script src="contest.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <!-- Container to store toasts -->
+    <div class="toasts">
+
+    </div>
+    
+    <h1>DMOJDuels</h1>
+    <h2>Testing Contest</h2>
+    <div class="contest-admins"></div>
+    <div class="contest-status">Contest ends in:</div>
+    <div class="time-remaining-container">
+        <div class="time-remaining">00:00:00:00</div>
+    </div>
+    <div class="container">
+        <div class="users-container">
+             <div class="users">
+
+            </div>
+        </div>
+
+        <div class="admin-container">
+            <div class="admin-controls">
+                <div class="title">Admin Controls</div>
+
+                <div class="subtitle">Problems</div>
+
+                <!-- Add Problem -->
+                <input type="text" class="text-input" id="add-input" placeholder="Enter the problem code (ex. aplusb)">
+                <input type="button" value="Add problem" class="button" id="add-input-bttn">
+
+                <br>
+
+                <!-- Remove Problem -->
+                <input type="text" class="text-input" id="remove-input" placeholder="Enter the problem code (ex. aplusb)">
+                <input type="button" value="Remove problem" class="button" id="remove-input-bttn">
+                
+                <div class="subtitle">Participants</div>
+
+                <!-- Add Participant -->
+                <input type="text" class="text-input" id="add-participant" placeholder="Enter participant handle">
+                <input type="button" value="Add Participant" class="button" id="add-participant-bttn">
+
+                <br>
+
+                <!-- Remove Participant -->
+                <input type="text" class="text-input" id="remove-participant" placeholder="Enter participant handle">
+                <input type="button" value="Remove Participant" class="button" id="remove-participant-bttn">
+
+                <br> 
+
+                <!-- Update Standings -->
+                <input type="button" value="Update Standings" class="button standings-button">
+            </div>
+        </div>
+       
+    </div>
+
+    
+</body>
+</html>

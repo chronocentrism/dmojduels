@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" type="image/png" href="img/DDlogo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="index.js" defer></script>
+    <title>DMOJDuels - Home</title>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <div class="account" onclick="showel()">
+        <i class="fa-solid fa-user"></i>
+        <div class="connected">Not Connected</div>
+    </div>
+
+    <div class="container">
+        <div class="title"><span class="red">⚔️DMOJ</span><span class="blue">Duels⚔️</span></div>
+        
+        <div class="button-container">
+            <input type="button" value="Solo Contests" class="button" onclick="window.location.href='/solo.html'" disabled>
+            <input type="button" value="Public Contests" class="button" onclick="window.location.href='/contest-page.html'">
+            <input type="button" value="Topic Practice" class="button" disabled>
+        </div>
+    </div>
+
+    <div class="popup">
+        <div class="popup-title">Connect your DMOJ Account</div>
+        <input type="text" placeholder="Enter your DMOJ handle" class="txt-input">
+        <input type="button" value="Next >>" class="btn-input" onclick="generate()">
+        <div class="submit-text"></div>
+    </div>
+
+
+
+
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDQLVKkzaT4B3MXHdczgSKaGjSDVJSboGY",
+    authDomain: "dmojduels.firebaseapp.com",
+    projectId: "dmojduels",
+    storageBucket: "dmojduels.firebasestorage.app",
+    messagingSenderId: "54721727021",
+    appId: "1:54721727021:web:ba1d3ed53704d23ac386a4",
+    measurementId: "G-QJNFSL4Q7S"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+    
+</body>
+</html>

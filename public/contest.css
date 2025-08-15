@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Mozilla+Text:wght@200..700&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Mozilla Text";
+    color: white;
+    background-color: rgb(0, 0, 31);
+}
+
+#particles-js {
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+}
+
+.toasts {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 10px;
+}
+
+.toast-type {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.toast-text {
+    font-size: 14px;
+    color: rgba(220, 220, 220, 1);
+}
+
+
+h1 {
+    text-align: center;
+    padding-top: 20px;
+    width: 100%;
+}
+
+h2 {
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.contest-creator-text {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contest-creator {
+    font-weight: 900;
+}
+
+.contest-admins {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contest-status {
+    margin: 20px 0;
+    text-align: center;
+    font-size: 20px;
+}
+
+.time-remaining-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.time-remaining {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 24px;
+    border: 3px solid white;
+    color: white;
+    
+    width: 200px;
+    height: 50px;
+    border-radius: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.users-container {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+
+
+.user {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(18, 0, 77, 0.9);
+    border-left: 5px solid rgba(75, 75, 255, 0.2);
+}
+
+.user-first {
+    height: 30px;
+    background-color: rgba(10, 0, 41, 0.9);
+    border-left: none;
+}
+
+.solved, .unsolved {
+    margin: 0 10px;
+    border-radius: 50%;
+}
+
+.solved {
+    box-shadow: 0 0 20px 5px rgba(0, 255, 0, 0.7);
+    background-color: rgb(0, 255, 0);
+}
+
+.unsolved {
+    background-color: rgb(255, 0, 0);
+    box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.7);
+}
+
+.spare {
+    cursor: pointer;
+    margin: 10px;
+    width: 50px;
+    height: 20px;
+    text-align: center;
+    display: Flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spare:hover {
+    text-decoration: underline ;
+}
+
+
+
+
+
+
+
+
+.admin-container {
+    display: flex;
+    justify-content: center;
+}
+
+.title {
+    text-align: center;
+    font-size: 36px;
+    padding: 30px 0;
+}
+
+.subtitle {
+    padding: 10px 0;
+}
+
+.button {
+    height: 30px;
+    width: 150px;
+    font-family: "Mozilla Text";
+    background: transparent;
+    color: white;
+    outline: none;
+    border: 2px solid white;
+
+    margin-bottom: 5px;
+    transition: 0.4s ease;
+    cursor: pointer;
+}
+
+.button:hover {
+    color: black;
+    background-color: white;
+}
+
+.standings-button {
+    margin: 10px 0;
+}
+
+.text-input {
+    height: 30px;
+    width: 250px;
+    border: 2px solid white;
+    outline: none;
+    padding: 5px;
+    font-family: "Mozilla Text";
+}

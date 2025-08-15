@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Mozilla+Text:wght@200..700&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Mozilla Text";
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0, 0, 31);
+    color: white;
+
+    display: flex;
+    justify-content: center;
+}
+
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.container {
+    width: 600px;
+    height: calc(100%-40px);
+    margin: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+
+    position: relative;
+}
+
+h1 {
+    background-color: rgba(0, 0, 169, 0.587);
+    margin: -20px;
+    padding: 30px;
+    text-align: center;
+}
+
+.title {
+    font-size: 24px;
+    margin: 10px 0;
+    margin-top: 40px;
+}
+
+.contest {
+    border: 3px solid white;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.contest-name {
+    font-size: 20px;
+}
+
+.contest-id {
+    color: rgb(168, 168, 168);
+}
+
+.button {
+    border: 2px solid white;
+    border-radius: 5px;
+    background: white;
+    color: black;
+    font-family: "Mozilla Text";
+    padding: 10px;
+
+    cursor: pointer;
+    transition: 0.4s ease;
+    font-size: 14px;
+    width: 100px;
+}
+
+.button:hover {
+    background: transparent;
+    color: white;
+}
+
+.create-contest-btn {
+    width: 550px;
+    height: 40px;
+    font-size: 16px;
+    font-family: "Mozilla Text";
+    color: white;
+    background: transparent;
+    border: 3px solid white;
+    border-radius: 10px;
+
+    cursor: pointer;
+    transition: 0.4s ease;
+
+    position: absolute;
+    bottom: 10px;
+}
+
+.create-contest-btn:hover {
+    background-color: white;
+    color: black;
+}

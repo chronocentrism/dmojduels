@@ -1,0 +1,418 @@
+// PARTICLES!!!
+particlesJS("particles-js", {
+    particles: {
+        number: {
+            value: 120,
+            density: { enable: true, value_area: 800 }
+        },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: {
+            value: 0.8,
+            random: true
+        },
+        size: {
+            value: 4,
+            random: true
+        },
+        move: {
+            direction: "bottom",
+            speed: 1,
+            out_mode: "out"
+        },
+        line_linked: { enable: false }
+    },
+    interactivity: {
+        events: {
+            onhover: { enable: false },
+            onclick: { enable: false }
+        }
+    },
+    retina_detect: true
+});
+
+// Firstly, you CAN'T ACCESS THIS PAGE IF YOU'RE NOT LOGGED IN
+if (localStorage.getItem("handle") === null) {
+    alert("Please log in first.")
+    window.location.href = "/"
+}
+
+
+
+
+// Get this info from the server later in the program
+var problems = []
+var users = []
+
+const params = new URLSearchParams(window.location.search);
+const curContestId = params.get('contest');
+
+// This is like the "Username, P1, P2, P3..." row 
+function gethead() {
+    const u = document.createElement("div");
+    u.classList.add("user");
+    u.classList.add("user-first");
+    u.innerHTML = `
+        <div style="width: 200px">HANDLE</div>
+    `
+
+    // Time to get the problems
+    for (let i=0; i<problems.length; i++) {
+        const el = document.createElement("div");
+        el.style = `
+            width: 40px;
+            height: 40px;
+        `
+        el.classList.add("spare")
+        el.innerText = "P" + (i+1);
+        el.onclick = () => window.open(`https://dmoj.ca/problem/${problems[i]}/`, "_blank");
+
+        u.append(el);
+    }
+
+
+    // Then finally add the stuff to the user solved
+    document.querySelector(".users").append(u);
+}
+
+function update(idx) {
+    if (idx == 0) {
+        document.querySelector(".users").innerHTML = "";
+        gethead();
+    }
+    if (idx >= users.length) {
+        return;
+    }
+    const username = users[idx];
+    const proxy = 'http://localhost:6969/';
+    const url = `https://dmoj.ca/api/v2/user/${username}`;
+
+    fetch(proxy + url)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            const user_problems = data.data.object.solved_problems;
+            const ratingColor = getRatingColor(data.data.object.rating);
+
+            u = document.createElement("div");
+            u.classList.add("user");
+            u.innerHTML = `
+                <div style="width: 200px; color: ${ratingColor}; font-weight: 700;">${username}</div>
+            `
+
+            // Time to get the problems
+            for (let i=0; i<problems.length; i++) {
+                const el = document.createElement("div");
+                el.style = `
+                    width: 40px;
+                    height: 40px;
+                `
+                if (user_problems.includes(problems[i])) {
+                    el.classList.add("solved");
+                } else {
+                    el.classList.add("unsolved");
+                }
+
+                u.append(el);
+            }
+
+
+            // Then finally add the stuff to the user solved
+            document.querySelector(".users").append(u);
+            update(idx+1);
+        })
+        .catch(err => {
+            console.error(err);
+        });
+}
+
+function fetchData() {
+    // FETCH FROM SERVER 
+    fetch('/data')
+        .then(response => response.json())
+        .then(data => {
+            console.log('Data from server:', data);
+
+            // Find the index of the contest with id curContestId
+            let idx = -1;
+            for (let i=0; i<data.contests.length; i++) {
+                if (data.contests[i].id == curContestId) {
+                    idx = i;
+                    break;
+                }
+            }
+            problems = data.contests[idx].problems;
+            users = data.contests[idx].users;
+
+            let admins = data.contests[idx].admins;
+
+            document.querySelector(".contest-admins").innerHTML = "<b>Contest Admins</b>: <i>" + admins + "</i>";
+            
+            // Also if you're not an admin, DON'T show the admin container
+            if (!admins.includes(localStorage.getItem("handle"))) {
+                document.querySelector(".admin-container").style.display = "none";
+            }
+
+            update(0);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+}
+
+
+function getRatingColor(rating) {
+    if (rating == null) {
+        return "rgba(255, 255, 255, 1)";
+    } else if (0 <= rating && rating < 1000) {
+        return "rgba(152, 152, 152, 1)";
+    } else if (1000 <= rating && rating <= 1299) {
+        return "rgba(0, 255, 0, 1)";
+    } else if (1300 <= rating && rating <= 1599) {
+        return "rgba(53, 86, 255, 1)";
+    } else if (1600 <= rating && rating <= 1899) {
+        return "rgba(179, 0, 255, 1)";
+    } else if (1900 <= rating && rating <= 2399) {
+        return "rgba(225, 255, 0, 1)";
+    } else if (2400 <= rating && rating <= 2999) {
+        return "rgba(255, 0, 0, 1)";
+    } else {
+        return "rgba(100, 0, 0, 1)";
+    }
+}
+
+
+
+// TOAST - Little notifications that pop up in the top-right hand corner of the screen
+function displayToast(type, text) {
+    // Ex. Type="Notice", text="Participant does not exist"
+    const toast = document.createElement("div");
+    toast.identity = Math.random();
+    toast.innerHTML = `
+        <div class="toast-type">${type}</div>
+        <div class="toast-text">${text}</div>
+    `
+    toast.style = `
+        background: transparent;
+        border: 3px solid white;
+        border-radius: 10px;
+        width: 300px;
+        margin: 5px 0;
+        padding: 15px;
+        padding-bottom: 25px;
+        transform: translateX(400px);
+        transition: 0.5s ease;
+        backdrop-filter: blur(2px);
+    `
+    const toasts = document.querySelector(".toasts");
+    toasts.append(toast);
+    
+    // Slide in effect
+    setTimeout(() => {
+        toast.style.transform = "translateX(0)";
+    }, 500)
+
+    // Slide out effect
+    setTimeout(() => {
+        toast.style.transform = "translateX(400px)";
+    }, 4500)
+
+    setTimeout(() => {
+        toasts.removeChild(toasts.firstElementChild);
+    }, 5000)
+}
+
+
+
+
+
+// button handling
+document.getElementById('add-input-bttn').onclick = () => {
+    var prblm_str = document.getElementById('add-input').value
+    prblm_str = prblm_str.replace("https://dmoj.ca/problem/","").toLowerCase();
+
+    if (prblm_str == "" || prblm_str == null){ 
+        displayToast("Notice", `Invalid Problem ID / Link.`)
+        return;
+    }
+
+    const dataToSend = {
+        "type":"problem",
+        "action":"add",
+        "contest_id":curContestId,
+        "problem_id":prblm_str
+    }
+
+    fetch('/savedata',{
+        method:'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataToSend)
+    }).then(
+        response => {
+            console.log(response),
+            document.getElementById('add-input').value = ""
+            displayToast("Notice", `Successfully added problem ${prblm_str}.`),
+            fetchData()
+        }
+    )
+
+    //if (!problems.includes(prblm_str)){
+        //problems.push(prblm_str);
+        
+    //} else {
+        //displayToast("Notice", "Problem already exists in contest!");
+    //}
+}
+
+document.getElementById('remove-input-bttn').onclick = () => {
+    var prblm_str = document.getElementById('remove-input').value
+    prblm_str = prblm_str.replace("https://dmoj.ca/problem/","").toLowerCase();
+
+    if (prblm_str == "" || prblm_str == null){ 
+        displayToast("Notice", `Invalid Problem ID / Link.`)
+        return;
+    }
+
+    const dataToSend = {
+        "type":"problem",
+        "action":"remove",
+        "contest_id":curContestId,
+        "problem_id":prblm_str
+    }
+
+    fetch('/savedata',{
+        method:'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataToSend)
+    }).then(
+        response => {
+            console.log(response),
+            document.getElementById('remove-input').value = ""
+            displayToast("Notice", `Successfully removed problem ${prblm_str}.`),
+            fetchData()
+        }
+    )
+
+
+    //const prblm_idx = problems.indexOf(prblm_str)
+    //if (prblm_idx!=-1){
+        //problems.splice(prblm_idx,1)
+         
+    //} else {
+     //   displayToast("Notice", "Requested problem does not exist in contest.");
+    //}
+}
+
+document.getElementById('add-participant-bttn').onclick = () => {
+    console.log("Button click")
+    var user_str = document.getElementById('add-participant').value
+    user_str = user_str.replace("https://dmoj.ca/user/","");
+
+    if (user_str == "" || user_str == null){ 
+        displayToast("Notice", `Invalid User ID / Link.`)
+        return;
+    }
+
+    const dataToSend = {
+        "type":"user",
+        "action":"add",
+        "contest_id":curContestId,
+        "name":user_str
+    }
+
+    fetch('/savedata',{
+        method:'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+         body: JSON.stringify(dataToSend)
+    }).then(
+        response => {
+            console.log(response),
+             document.getElementById('add-participant').value = ""
+            displayToast("Notice", `Successfully added participant ${user_str}.`),
+            fetchData()
+        }
+    )
+    //if (!users.includes(user_str)){
+        //users.push(user_str);
+
+        
+
+        
+        
+    //}
+}
+
+document.getElementById('remove-participant-bttn').onclick = () => {
+    var user_str = document.getElementById('remove-participant').value
+    user_str = user_str.replace("https://dmoj.ca/user/","");
+    //const user_idx = users.indexOf(user_str)
+
+    if (user_str == "" || user_str == null){ 
+        displayToast("Notice", `Invalid User ID / Link.`)
+        return;
+    }
+    
+    const dataToSend = {
+        "type":"user",
+        "action":"remove",
+        "contest_id":curContestId,
+        "name":user_str
+    }
+
+    fetch('/savedata',{
+        method:'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataToSend)
+    }).then(
+        response => {
+            console.log(response),
+            document.getElementById('remove-participant').value = ""
+            displayToast("Notice", `Successfully removed participant ${user_str}.`),
+            fetchData()
+        }
+    )
+    
+    
+    //if (user_idx!=-1){
+       
+        //users.splice(user_idx,1)
+
+        
+        
+    //} else {
+        //displayToast("Notice", `Participant ${user_str} is not a participant of this contest.`)
+    //}
+}
+
+var update_db = false;
+document.querySelector(".standings-button").onclick = () => {
+    if (!update_db){
+        update_db = true;
+        document.querySelector(".standings-button").style.opacity = "0.5"
+        displayToast("Notice", "Successfully updated standings.")
+        update(0)
+        setInterval(() => {
+            update_db = false;
+            document.querySelector(".standings-button").style.opacity = "1"
+        },5000)
+    }else{
+        displayToast("Notice", `Please wait 5 seconds before updating the standings!`)
+    }
+}
+
+
+fetchData();
+
+inty = setInterval(() => {
+    fetchData();
+}, 65000)
+
+
