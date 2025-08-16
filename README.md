@@ -22,3 +22,4 @@ You are able to:
 - Add/remove participants
 - Refresh the standings
 
+There is also a "database" data.json, which stores data about contests that are currently running. The contents can be changed automatically via the UI, but feel free to alter them manually as well. 
