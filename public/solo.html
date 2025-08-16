@@ -4,12 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DMOJDuels Solo Contest</title>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="solo.js" defer></script>
+    <link rel="stylesheet" href="solo.css">
 </head>
 <body>
-    <div class="container">
-        <div class="controls">
-            
+    <div id="particles-js"></div>
+    <div class="container-1">
+        <div class="text">Select your difficulty</div>
+        <div class="difficulties">
+            <div class="difficulty difficulty-1" onclick="setDifficulty(1)">
+                <div class="name">CCC Junior</div>
+                <div class="distribution">3-5-5-7-7</div>
+            </div>
+
+            <div class="difficulty difficulty-2" onclick="setDifficulty(2)">
+                <div class="name">CCC Senior</div>
+                <div class="distribution">5-7-10-15-17</div>
+            </div>
+
+            <div class="difficulty difficulty-3" onclick="setDifficulty(3)">
+                <div class="name">Beginner</div>
+                <div class="distribution">3-3-3-5-5</div>
+            </div>
+
+            <div class="difficulty difficulty-4" onclick="setDifficulty(4)">
+                <div class="name">Easy</div>
+                <div class="distribution">3-3-5-5-7</div>
+            </div>
+
+            <div class="difficulty difficulty-5" onclick="setDifficulty(5)">
+                <div class="name">Medium</div>
+                <div class="distribution">3-5-5-7-10</div>
+            </div>
+
+            <div class="difficulty difficulty-6" onclick="setDifficulty(6)">
+                <div class="name">Hard</div>
+                <div class="distribution">5-7-7-10-10</div>
+            </div>
+
+            <div class="difficulty difficulty-7" onclick="setDifficulty(7)">
+                <div class="name">Challenging</div>
+                <div class="distribution">7-7-10-10-12</div>
+            </div>
+
+            <div class="difficulty difficulty-8" onclick="setDifficulty(8)">
+                <div class="name">Extreme</div>
+                <div class="distribution">7-10-10-12-15</div>
+            </div>
+
+            <div class="difficulty difficulty-9" onclick="setDifficulty(9)">
+                <div class="name">Insane</div>
+                <div class="distribution">10-12-12-15-15</div>
+            </div>
+
+            <div class="difficulty difficulty-10" onclick="setDifficulty(10)">
+                <div class="name">Master</div>
+                <div class="distribution">10-12-15-15-17</div>
+            </div>
         </div>
     </div>
+
+    <!--
+        1: Mock CCC Junior: 3-5-5-7-7
+        2: Mock CCC Senior: 5-7-10-15-17
+        3: Beginner: 3-3-3-5-5
+        4: Easy: 3-3-5-5-7
+        5: Medium: 3-5-5-7-10
+        6: Hard: 5-7-7-10-10
+        7: Challenging: 7-7-10-10-12
+        8: Extreme: 7-10-10-12-15
+        9: Insane: 10-12-12-15-15
+        10: Master: 10-12-15-15-17
+    -->
+
 </body>
 </html>
