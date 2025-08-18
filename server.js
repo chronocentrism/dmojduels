@@ -144,16 +144,18 @@ app.post('/create', (req, res) => {
         }
         try {
             let jso = JSON.parse(jsonString);
-            req.body.id = generateContestID()
-            jso.contests.push(req.body);
-            fs.writeFile(dataPath, JSON.stringify(jso, null, 2), "utf8", (err) => {
-                if (err) {
-                    console.log("Error writing file!!");
-                } else {
-                    console.log("File Overwritten!");
-                    res.json({"yay": "yay"});
-                }
+            generateContestID().then(cid => {
+                req.body.id = cid;
+                jso.contests.push(req.body);
+                fs.writeFile(dataPath, JSON.stringify(jso, null, 2), "utf8", (err) => {
+                    if (err) {console.log("Error writing file!!");
+                    } else {
+                        console.log("File Overwritten!");
+                        res.json({"yay": "yay"});
+                    }
+                })
             })
+            
         } catch (parseErr) {
             console.error("Oopsies");
             res.status(500).json({error: "Invalid JSON format"})

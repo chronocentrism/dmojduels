@@ -17,54 +17,6 @@
       "problems": [
         "a4b1"
       ]
-    },
-    {
-      "name": "Test",
-      "id": "lskblwhiacy2ihowjbj",
-      "status": "upcoming",
-      "admins": [
-        "As_dm"
-      ],
-      "users": [],
-      "start-time": "1234-05-31 12:34",
-      "end-time": "",
-      "problems": []
-    },
-    {
-      "name": "Test Contest",
-      "status": "upcoming",
-      "admins": [
-        "As_dm"
-      ],
-      "users": [],
-      "start-time": "1234-05-31 12:34",
-      "end-time": "",
-      "problems": [],
-      "id": {}
-    },
-    {
-      "name": "testing contest",
-      "status": "upcoming",
-      "admins": [
-        "As_dm"
-      ],
-      "users": [],
-      "start-time": "1234-03-03 12:34",
-      "end-time": "",
-      "problems": [],
-      "id": {}
-    },
-    {
-      "name": "Another one",
-      "status": "upcoming",
-      "admins": [
-        "As_dm"
-      ],
-      "users": [],
-      "start-time": "1234-03-03 13:23",
-      "end-time": "",
-      "problems": [],
-      "id": {}
     }
   ],
   "comments": [
