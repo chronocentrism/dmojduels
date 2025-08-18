@@ -140,7 +140,7 @@ function update(idx) {
     }
 
     const username = users[idx];
-    const proxy = 'http://localhost:6969/';
+    const proxy = 'https://dmojduels.onrender.com/';
     const url = `https://dmoj.ca/api/v2/user/${username}`;
 
     fetch(proxy + url, {

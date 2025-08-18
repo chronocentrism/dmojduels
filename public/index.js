@@ -43,7 +43,7 @@ function generate() {
         // Either way, add a button to refresh the page
         
         const username = document.querySelector(".txt-input").value;
-        const proxy = 'http://localhost:6969/';
+        const proxy = 'https://dmojduels.onrender.com/';
         const url = `https://dmoj.ca/api/v2/submissions?user=${username}`;
 
         fetch(proxy + url)
