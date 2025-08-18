@@ -18,16 +18,32 @@ const proxy = cors_proxy.createServer({
   removeHeaders: ["cookie", "cookie2"]
 });
 // Mount proxy under /proxy/*
-app.use("/proxy", (req, res) => {
-  // Strip the /proxy prefix
-  req.url = req.url.replace(/^\/proxy/, "");
+app.use("/proxy", async (req, res) => {
+  try {
+    // Strip `/proxy` from the path and build the target URL
+    let targetUrl = req.url.replace(/^\/proxy\//, "");
+    if (targetUrl.startsWith("/")) {
+        targetUrl = targetUrl.slice(1);
+    }
 
-  // If request is going to DMOJ, inject Authorization header
-  if (req.url.includes("dmoj.ca")) {
-    req.headers["Authorization"] = `Bearer ${DMOJ_AUTH_KEY}`;
+    console.log("Fetching from:", targetUrl);
+
+    // Make the request to DMOJ with auth header
+    const response = await fetch(targetUrl, {
+      headers: {
+        "Authorization": `Bearer ${DMOJ_AUTH_KEY}`,
+      },
+    });
+
+    // Forward the response back
+    const text = await response.text(); // in case it's not JSON
+    res.set("Content-Type", response.headers.get("content-type") || "application/json");
+    res.status(response.status).send(text);
+
+  } catch (err) {
+    console.error("Proxy error:", err);
+    res.status(500).json({ error: "Proxy request failed" });
   }
-
-  proxy.emit("request", req, res);
 });
 
 // ----------------- HELPER FUNCTIONS -----------------
@@ -188,42 +204,6 @@ app.post("/create", (req, res) => {
       res.status(500).json({ error: "Invalid JSON format" });
     }
   });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-// DMOJ AUITHOR
-
-// Add a route to proxy DMOJ requests
-app.get('/api/submissions/:username', async (req, res) => {
-    const username = req.params.username;
-
-    try {
-        const response = await fetch(`https://dmoj.ca/api/v2/submissions?user=${username}`, {
-            headers: {
-                "Authorization": `Bearer ${DMOJ_AUTH_KEY}`
-            }
-        });
-
-        if (!response.ok) {
-            return res.status(response.status).json({ error: "Failed to fetch from DMOJ" });
-        }
-
-        const data = await response.json();
-        res.json(data); // forward the data to the frontend
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Internal server error" });
-    }
 });
 
 
