@@ -41,8 +41,8 @@ app.use("/proxy", async (req, res) => {
     res.status(response.status).send(text);
 
   } catch (err) {
-    console.error("Proxy error:", err);
-    res.status(500).json({ error: "Proxy request failed" });
+    console.error("Proxy error:", err); // full stack trace in your server logs
+    res.status(500).json({ error: err.message });
   }
 });
 
