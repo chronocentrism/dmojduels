@@ -43,7 +43,7 @@ let contestStarted = false;
 
 let admins;
 
-
+const dmoj_auth_key = "AAIeDCfzfW1MEk1uYn7Fc54bW0Ib3kYnGuuHjnYW3LKDNrFj"
 
 
 
@@ -144,7 +144,7 @@ function update(idx) {
     const url = `https://dmoj.ca/api/v2/user/${username}`;
 
     fetch(proxy + url, {
-        "Authorization": `Bearer ${"AAIeDCfzfW1MEk1uYn7Fc54bW0Ib3kYnGuuHjnYW3LKDNrFj"}`
+        "Authorization": `Bearer ${dmoj_auth_key}`
     })
         .then(res => res.json())
         .then(data => {
@@ -265,6 +265,61 @@ function displayToast(type, text) {
 }
 
 
+async function validfyInfo(cType,content){
+    if(cType == "user"){
+        const url = `https://dmoj.ca/api/v2/user/${encodeURIComponent(username)}`;
+        try {
+            const res = await fetch(url, {
+            headers: {
+                "Authorization": `Bearer ${YOUR_API_TOKEN_HERE}`
+            }
+            });
+
+            if (res.ok) {
+            const data = await res.json();
+            console.log("User exists:", data.data.object.username);
+            return true;
+            } else if (res.status === 404) {
+            console.log("User not found.");
+            return false;
+            } else {
+            const errData = await res.json().catch(() => null);
+            console.error("Error:", errData?.error?.message || res.statusText);
+            return false;
+            }
+        } catch (err) {
+            console.error("Network error:", err);
+            return false;
+        }
+    }else if(cType == "problem"){
+        const url = `https://dmoj.ca/api/v2/problem/${encodeURIComponent(content)}`;
+        try {
+            const res = await fetch(url, {
+            headers: {
+                "Authorization": `Bearer ${dmoj_auth_key}`
+            }
+            });
+
+            if (res.ok) {
+                const json = await res.json();
+                console.log("Exists! Problem data:", json.data.object);
+                return true;
+            } else if (res.status === 404) {
+                console.log("Problem not found.");
+                return false;
+            } else {
+                const json = await res.json();
+                console.error("Error:", json.error?.message || res.statusText);
+                return false;
+            }
+        } catch (err) {
+            console.error("Network or other fetch error:", err);
+            return false;
+        }
+    }else{
+        return null;
+    }
+}
 
 
 
@@ -273,7 +328,7 @@ document.getElementById('add-input-bttn').onclick = () => {
     var prblm_str = document.getElementById('add-input').value
     prblm_str = prblm_str.replace("https://dmoj.ca/problem/","").toLowerCase();
 
-    if (prblm_str == "" || prblm_str == null){ 
+    if (prblm_str == "" || prblm_str == null || validfyInfo("problem",prblm_str) != true){ 
         displayToast("Notice", `Invalid Problem ID / Link.`)
         return;
     }
@@ -312,7 +367,7 @@ document.getElementById('remove-input-bttn').onclick = () => {
     var prblm_str = document.getElementById('remove-input').value
     prblm_str = prblm_str.replace("https://dmoj.ca/problem/","").toLowerCase();
 
-    if (prblm_str == "" || prblm_str == null){ 
+    if (prblm_str == "" || prblm_str == null || validfyInfo("problem",prblm_str) != true){ 
         displayToast("Notice", `Invalid Problem ID / Link.`)
         return;
     }
@@ -354,7 +409,7 @@ document.getElementById('add-participant-bttn').onclick = () => {
     var user_str = document.getElementById('add-participant').value
     user_str = user_str.replace("https://dmoj.ca/user/","");
 
-    if (user_str == "" || user_str == null){ 
+    if (user_str == "" || user_str == null || validfyInfo("user",user_str) != true){ 
         displayToast("Notice", `Invalid User ID / Link.`)
         return;
     }
@@ -395,7 +450,7 @@ document.getElementById('remove-participant-bttn').onclick = () => {
     user_str = user_str.replace("https://dmoj.ca/user/","");
     //const user_idx = users.indexOf(user_str)
 
-    if (user_str == "" || user_str == null){ 
+    if (user_str == "" || user_str == null || validfyInfo("user",user_str) != true){ 
         displayToast("Notice", `Invalid User ID / Link.`)
         return;
     }
