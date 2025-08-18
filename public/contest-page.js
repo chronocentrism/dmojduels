@@ -100,9 +100,14 @@ async function createContest() {
 
             let combined = `${date}T${time}:00-04:00`;
             let ending_time = new Date(new Date(combined).getTime() + duration * 60000);
-            let iso = ending_time.toISOString();
-            let endFormatted = iso.replace("Z", "-04:00");
 
+            // Change to EST time
+            function formatEST(date) {
+                let parts = date.toLocaleString("sv-SE", { timeZone: "America/New_York" });
+                return parts.replace(" ", "T") + "-04:00";
+            }
+
+            let endFormatted = formatEST(ending_time);
             const res = await fetch("/getnewcid", { method: "POST" });
             if (!res.ok) throw new Error("Failed to get new ID");
             

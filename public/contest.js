@@ -37,6 +37,12 @@ if (localStorage.getItem("handle") === null) {
     window.location.href = "/"
 }
 
+// Here are variables for the contest starting and ending time
+let contestStart, contestEnd;
+let contestStarted = false;
+
+
+
 
 
 
@@ -88,26 +94,26 @@ function gethead() {
     document.querySelector(".users").append(u);
 }
 
-function sortAndDisplay(){
-    userSolvedCount = sortDictByTbLn(userSolvedCount)
-    for(let key in userSolvedCount){
-        for (let i=0; i<key.length; i++) {
-            const el = document.createElement("div");
-             el.style = `
-                width: 40px;
-                height: 40px;
-            `
-            if (user_problems.includes(problems[i])) {
-                el.classList.add("solved");
-            } else {
-                el.classList.add("unsolved");
-            }
+// function sortAndDisplay(){
+//     userSolvedCount = sortDictByTbLn(userSolvedCount)
+//     for(let key in userSolvedCount){
+//         for (let i=0; i<key.length; i++) {
+//             const el = document.createElement("div");
+//              el.style = `
+//                 width: 40px;
+//                 height: 40px;
+//             `
+//             if (user_problems.includes(problems[i])) {
+//                 el.classList.add("solved");
+//             } else {
+//                 el.classList.add("unsolved");
+//             }
 
-            u.append(el);
-            document.querySelector(".users").append(u);
-        }
-    }
-}
+//             u.append(el);
+//             document.querySelector(".users").append(u);
+//         }
+//     }
+// }
 
 
 function update(idx) {
@@ -137,7 +143,6 @@ function update(idx) {
             `
 
             userSolvedCount[username] = problems
-            /*
             // Time to get the problems
             for (let i=0; i<problems.length; i++) {
                 const el = document.createElement("div");
@@ -156,13 +161,12 @@ function update(idx) {
 
 
             // Then finally add the stuff to the user solved
-            document.querySelector(".users").append(u);*/
+            document.querySelector(".users").append(u);
             update(idx+1);
         })
         .catch(err => {
             console.error(err);
         });
-        sortAndDisplay()
 }
 
 function fetchData() {
@@ -191,6 +195,10 @@ function fetchData() {
             if (!admins.includes(localStorage.getItem("handle"))) {
                 document.querySelector(".admin-container").style.display = "none";
             }
+
+            // Contest starting and ending
+            contestStart = new Date(data.contests[idx]["start-time"]);
+            contestEnd = new Date(data.contests[idx]["end-time"]);
 
             update(0);
         })
@@ -455,3 +463,29 @@ inty = setInterval(() => {
 }, 65000)
 
 
+
+
+
+
+
+
+
+// Time
+
+
+function timeUntil(curDate) {
+    let diff = contestEnd - curDate;
+    if (diff <= 0) return { d:0,h:0,m:0,s:0 };
+    let d = Math.floor(diff / 864e5);        // days
+    let h = Math.floor(diff / 36e5) % 24;    // hours
+    let m = Math.floor(diff / 6e4) % 60;     // minutes
+    let s = Math.floor(diff / 1e3) % 60;     // seconds
+    return { d, h, m, s };
+}
+
+
+// We have to repeatedly update the amount of time left in the contest
+inty2 = setInterval(() => {
+    let tmp = timeUntil(new Date());
+    document.querySelector(".time-remaining").innerText = `${tmp.d}d ${tmp.h}h ${tmp.m}m ${tmp.s}s`
+}, 1000)
