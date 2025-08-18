@@ -2,14 +2,16 @@ const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const cors_proxy = require("cors-anywhere");
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 6969;
 
-const DMOJ_AUTH_KEY = "AAKjHjB6bCy0NJRygjxtUC30JibmN925tpqT9I-6IRxTrlzH"
+const DMOJ_AUTH_KEY = `AALiXxdP-s51Sx8y0PiREXgoGGmxNguIWEWpgzGJYNgwHb1t`
 
 app.use(express.json());
 app.use(express.static("public")); // serves your frontend files
+app.use(cors());
 
 // ----------------- CORS PROXY -----------------
 const proxy = cors_proxy.createServer({
@@ -27,13 +29,14 @@ app.use("/proxy", async (req, res) => {
     }
 
     console.log("Fetching from:", targetUrl);
+    console.log("Authorization is " + `Bearer ${DMOJ_AUTH_KEY}`);
 
     // Make the request to DMOJ with auth header
     const response = await fetch(targetUrl, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        "Authorization": `Bearer ${DMOJ_AUTH_KEY}`
-      },
+        Authorization: "Bearer " + DMOJ_AUTH_KEY
+      }
     });
 
     // Forward the response back

@@ -1,9 +1,25 @@
 {
   "dependencies": {
+    "cors": "^2.8.5",
     "cors-anywhere": "^0.4.4",
     "express": "^5.1.0"
   },
   "scripts": {
     "start": "node server.js"
-  }
+  },
+  "name": "dmojduels",
+  "version": "1.0.0",
+  "description": "_Based off http://dmoj.ca/_",
+  "main": "proxy.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chronocentrism/dmojduels.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chronocentrism/dmojduels/issues"
+  },
+  "homepage": "https://github.com/chronocentrism/dmojduels#readme"
 }
