@@ -6,6 +6,8 @@ const cors_proxy = require("cors-anywhere");
 const app = express();
 const PORT = process.env.PORT || 6969;
 
+const DMOJ_AUTH_KEY = "AAKjHjB6bCy0NJRygjxtUC30JibmN925tpqT9I-6IRxTrlzH"
+
 app.use(express.json());
 app.use(express.static("public")); // serves your frontend files
 
@@ -181,6 +183,45 @@ app.post("/create", (req, res) => {
     }
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+// DMOJ AUITHOR
+
+// Add a route to proxy DMOJ requests
+app.get('/api/submissions/:username', async (req, res) => {
+    const username = req.params.username;
+
+    try {
+        const response = await fetch(`https://dmoj.ca/api/v2/submissions?user=${username}`, {
+            headers: {
+                "Authorization": `Bearer ${DMOJ_AUTH_KEY}`
+            }
+        });
+
+        if (!response.ok) {
+            return res.status(response.status).json({ error: "Failed to fetch from DMOJ" });
+        }
+
+        const data = await response.json();
+        res.json(data); // forward the data to the frontend
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+
+
 
 // ----------------- START SERVER -----------------
 app.listen(PORT, () => {

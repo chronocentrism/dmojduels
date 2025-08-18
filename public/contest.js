@@ -43,9 +43,6 @@ let contestStarted = false;
 
 let admins;
 
-const dmoj_auth_key = "AAKjHjB6bCy0NJRygjxtUC30JibmN925tpqT9I-6IRxTrlzH"
-
-
 
 
 // Get this info from the server later in the program
@@ -140,14 +137,9 @@ function update(idx) {
     }
 
     const username = users[idx];
-    const proxy = 'https://dmojduels.onrender.com/proxy/';;
-    const url = `https://dmoj.ca/api/v2/user/${username}`;
+    const url = `/api/v2/user/${username}`;
 
-    fetch(proxy + url, {
-        headers: {
-            "Authorization": `Bearer ${dmoj_auth_key}`
-        }
-    })
+    fetch(url)
         .then(res => res.json())
         .then(data => {
             const user_problems = data.data.object.solved_problems;
@@ -269,13 +261,9 @@ function displayToast(type, text) {
 
 async function validfyInfo(cType,content){
     if(cType == "user"){
-        const url = `https://dmoj.ca/api/v2/user/${encodeURIComponent(username)}`;
+        const url = `/api/v2/user/${encodeURIComponent(username)}`;
         try {
-            const res = await fetch(url, {
-            headers: {
-                "Authorization": `Bearer ${YOUR_API_TOKEN_HERE}`
-            }
-            });
+            const res = await fetch(url);
 
             if (res.ok) {
             const data = await res.json();
@@ -294,13 +282,9 @@ async function validfyInfo(cType,content){
             return false;
         }
     }else if(cType == "problem"){
-        const url = `https://dmoj.ca/api/v2/problem/${encodeURIComponent(content)}`;
+        const url = `/api/v2/problem/${encodeURIComponent(content)}`;
         try {
-            const res = await fetch(url, {
-            headers: {
-                "Authorization": `Bearer ${dmoj_auth_key}`
-            }
-            });
+            const res = await fetch(url);
 
             if (res.ok) {
                 const json = await res.json();

@@ -22,8 +22,6 @@ particlesJS("particles-js", {
 
 problems = ["aplusb", "helloworld", "ccc00s1", "a4b1"]
 
-const dmoj_auth_key = "AAKjHjB6bCy0NJRygjxtUC30JibmN925tpqT9I-6IRxTrlzH"
-
 function showel() {
     // If they clicked and it's already logged in, then log out
     if (localStorage.getItem("handle") !== null) {
@@ -45,14 +43,9 @@ function generate() {
         // Either way, add a button to refresh the page
         
         const username = document.querySelector(".txt-input").value;
-        const proxy = 'https://dmojduels.onrender.com/proxy/';
-        const url = `https://dmoj.ca/api/v2/submissions?user=${username}`;
+        const url = `/api/v2/submissions?user=${username}`;
 
-        fetch(proxy + url, {
-            headers: {
-                "Authorization": `Bearer ${dmoj_auth_key}`
-            }
-        })
+        fetch(url)
             .then(res => res.json())
             .then(data => {
                 let sub = data.data.objects[data.data.objects.length-1];
