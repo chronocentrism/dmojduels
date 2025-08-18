@@ -17,6 +17,18 @@
       "problems": [
         "a4b1"
       ]
+    },
+    {
+      "name": "Test",
+      "id": "lskblwhiacy2ihowjbj",
+      "status": "upcoming",
+      "admins": [
+        "As_dm"
+      ],
+      "users": [],
+      "start-time": "1234-05-31 12:34",
+      "end-time": "",
+      "problems": []
     }
   ],
   "comments": [
