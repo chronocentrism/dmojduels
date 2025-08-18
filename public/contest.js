@@ -41,6 +41,8 @@ if (localStorage.getItem("handle") === null) {
 let contestStart, contestEnd;
 let contestStarted = false;
 
+let admins;
+
 
 
 
@@ -129,7 +131,9 @@ function update(idx) {
     const url = `https://dmoj.ca/api/v2/user/${username}`;
 
 
-    fetch(proxy + url)
+    fetch(proxy + url, {
+        "Authorization": `Bearer ${"AAMO10ofrHihDShFdo5v1UxIdUTY_yLZCKWqr2wSHEiJFx6f"}`
+    })
         .then(res => res.json())
         .then(data => {
             console.log(data);
@@ -187,7 +191,7 @@ function fetchData() {
             problems = data.contests[idx].problems;
             users = data.contests[idx].users;
 
-            let admins = data.contests[idx].admins;
+            admins = data.contests[idx].admins;
 
             document.querySelector(".contest-admins").innerHTML = "<b>Contest Admins</b>: <i>" + admins + "</i>";
             
@@ -488,14 +492,21 @@ inty2 = setInterval(() => {
         document.querySelector(".contest-status").innerText = "Contest starts in:";
         let tmp = timeUntil(contestStart, new Date());
         document.querySelector(".time-remaining").innerText = `${tmp.d}d ${tmp.h}h ${tmp.m}m ${tmp.s}s`
+        if (!admins.includes(localStorage.getItem("handle"))) {
+            document.querySelector(".container").style.display = "none";
+        } else {
+            document.querySelector(".container").style.display = "flex";
+        }
     } else if (new Date() > contestEnd) {
         document.querySelector(".contest-status").innerText = "Contest Ended!";
         let tmp = timeUntil(contestEnd, new Date());
         document.querySelector(".time-remaining").innerText = `${tmp.d}d ${tmp.h}h ${tmp.m}m ${tmp.s}s`
+        document.querySelector(".container").style.display = "flex";
     } else {
         document.querySelector(".contest-status").innerText = "Contest ends in:";
         let tmp = timeUntil(contestEnd, new Date());
         document.querySelector(".time-remaining").innerText = `${tmp.d}d ${tmp.h}h ${tmp.m}m ${tmp.s}s`
+        document.querySelector(".container").style.display = "flex";
     }
     document.querySelector(".time-remaining").innerText = `${tmp.d}d ${tmp.h}h ${tmp.m}m ${tmp.s}s`
 }, 1000)
