@@ -53,6 +53,7 @@ var problems = []
 var users = []
 
 var userSolvedCount = {}
+var userRatingColor = {}
 
 const params = new URLSearchParams(window.location.search);
 const curContestId = params.get('contest');
@@ -96,26 +97,34 @@ function gethead() {
     document.querySelector(".users").append(u);
 }
 
-// function sortAndDisplay(){
-//     userSolvedCount = sortDictByTbLn(userSolvedCount)
-//     for(let key in userSolvedCount){
-//         for (let i=0; i<key.length; i++) {
-//             const el = document.createElement("div");
-//              el.style = `
-//                 width: 40px;
-//                 height: 40px;
-//             `
-//             if (user_problems.includes(problems[i])) {
-//                 el.classList.add("solved");
-//             } else {
-//                 el.classList.add("unsolved");
-//             }
+function displayUsers() {
+    document.querySelector(".users").innerHTML = "";
+    gethead();
 
-//             u.append(el);
-//             document.querySelector(".users").append(u);
-//         }
-//     }
-// }
+    for (let username in userSolvedCount) {
+        const solved = userSolvedCount[username];
+        const ratingColor = userRatingColor[username];
+
+        const u = document.createElement("div");
+        u.classList.add("user");
+        u.innerHTML = `
+            <div style="width: 200px; color: ${ratingColor}; font-weight: 700;">${username}</div>
+        `
+
+        for (let i=0; i<problems.length; i++) {
+            const el = document.createElement("div");
+            el.style = `width: 40px; height: 40px;`;
+            if (solved.includes(problems[i])) {
+                el.classList.add("solved");
+            } else {
+                el.classList.add("unsolved");
+            }
+            u.append(el);
+        }
+
+        document.querySelector(".users").append(u);
+    }
+}
 
 
 function update(idx) {
@@ -124,54 +133,36 @@ function update(idx) {
         gethead();
     }
     if (idx >= users.length) {
+        // Once all users are fetched → sort & display once
+        userSolvedCount = sortDictByTbLn(userSolvedCount);
+        displayUsers();
         return;
     }
+
     const username = users[idx];
     const proxy = 'http://localhost:6969/';
     const url = `https://dmoj.ca/api/v2/user/${username}`;
 
-
     fetch(proxy + url, {
-        "Authorization": `Bearer ${"AAMO10ofrHihDShFdo5v1UxIdUTY_yLZCKWqr2wSHEiJFx6f"}`
+        "Authorization": `Bearer ${"AAIeDCfzfW1MEk1uYn7Fc54bW0Ib3kYnGuuHjnYW3LKDNrFj"}`
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             const user_problems = data.data.object.solved_problems;
             const ratingColor = getRatingColor(data.data.object.rating);
 
-            u = document.createElement("div");
-            u.classList.add("user");
-            u.innerHTML = `
-                <div style="width: 200px; color: ${ratingColor}; font-weight: 700;">${username}</div>
-            `
+            userRatingColor[username] = ratingColor;
+            userSolvedCount[username] = user_problems.filter(p => problems.includes(p));
 
-            userSolvedCount[username] = problems
-            // Time to get the problems
-            for (let i=0; i<problems.length; i++) {
-                const el = document.createElement("div");
-                el.style = `
-                    width: 40px;
-                    height: 40px;
-                `
-                if (user_problems.includes(problems[i])) {
-                    el.classList.add("solved");
-                } else {
-                    el.classList.add("unsolved");
-                }
-
-                u.append(el);
-            }
-
-
-            // Then finally add the stuff to the user solved
-            document.querySelector(".users").append(u);
+            // move on to next user
             update(idx+1);
         })
         .catch(err => {
             console.error(err);
+            update(idx+1); // keep going even if one user fails
         });
 }
+
 
 function fetchData() {
     // FETCH FROM SERVER 
