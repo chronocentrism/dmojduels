@@ -144,6 +144,7 @@ app.post('/create', (req, res) => {
         }
         try {
             let jso = JSON.parse(jsonString);
+            req.body.id = generateContestID()
             jso.contests.push(req.body);
             fs.writeFile(dataPath, JSON.stringify(jso, null, 2), "utf8", (err) => {
                 if (err) {

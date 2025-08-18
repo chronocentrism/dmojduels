@@ -100,16 +100,18 @@ async function createContest() {
             const res = await fetch("/getnewcid", { method: "POST" });
             if (!res.ok) throw new Error("Failed to get new ID");
             
+            /*
             const data = await res.json();
             const id = data.new_id;
             console.log("New contest ID:", id);
+            */
 
             const createRes = await fetch("/create", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     name: name,
-                    id: id,
+                    //id: id,
                     status: "upcoming",
                     admins: [localStorage.getItem("handle")],
                     users: [],

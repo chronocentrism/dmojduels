@@ -44,8 +44,21 @@ if (localStorage.getItem("handle") === null) {
 var problems = []
 var users = []
 
+var userSolvedCount = {}
+
 const params = new URLSearchParams(window.location.search);
 const curContestId = params.get('contest');
+
+// custom sort method - sorts dictionary based on size of each table per dictionary entry (biggest = top, smallest = bottom)
+function sortDictByTbLn(dict) {
+  return Object.entries(dict)
+
+    .sort((a, b) => b[1].length - a[1].length)
+    .reduce((acc, [key, value]) => {
+      acc[key] = value;
+      return acc;
+    }, {});
+}
 
 // This is like the "Username, P1, P2, P3..." row 
 function gethead() {
@@ -75,6 +88,28 @@ function gethead() {
     document.querySelector(".users").append(u);
 }
 
+function sortAndDisplay(){
+    userSolvedCount = sortDictByTbLn(userSolvedCount)
+    for(let key in userSolvedCount){
+        for (let i=0; i<key.length; i++) {
+            const el = document.createElement("div");
+             el.style = `
+                width: 40px;
+                height: 40px;
+            `
+            if (user_problems.includes(problems[i])) {
+                el.classList.add("solved");
+            } else {
+                el.classList.add("unsolved");
+            }
+
+            u.append(el);
+            document.querySelector(".users").append(u);
+        }
+    }
+}
+
+
 function update(idx) {
     if (idx == 0) {
         document.querySelector(".users").innerHTML = "";
@@ -86,6 +121,7 @@ function update(idx) {
     const username = users[idx];
     const proxy = 'http://localhost:6969/';
     const url = `https://dmoj.ca/api/v2/user/${username}`;
+
 
     fetch(proxy + url)
         .then(res => res.json())
@@ -100,6 +136,8 @@ function update(idx) {
                 <div style="width: 200px; color: ${ratingColor}; font-weight: 700;">${username}</div>
             `
 
+            userSolvedCount[username] = problems
+            /*
             // Time to get the problems
             for (let i=0; i<problems.length; i++) {
                 const el = document.createElement("div");
@@ -118,12 +156,13 @@ function update(idx) {
 
 
             // Then finally add the stuff to the user solved
-            document.querySelector(".users").append(u);
+            document.querySelector(".users").append(u);*/
             update(idx+1);
         })
         .catch(err => {
             console.error(err);
         });
+        sortAndDisplay()
 }
 
 function fetchData() {
