@@ -144,7 +144,9 @@ function update(idx) {
     const url = `https://dmoj.ca/api/v2/user/${username}`;
 
     fetch(proxy + url, {
-        "Authorization": `Bearer ${dmoj_auth_key}`
+        headers: {
+            "Authorization": `Bearer ${dmoj_auth_key}`
+        }
     })
         .then(res => res.json())
         .then(data => {
