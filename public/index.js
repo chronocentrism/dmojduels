@@ -43,7 +43,7 @@ function generate() {
         // Either way, add a button to refresh the page
         
         const username = document.querySelector(".txt-input").value;
-        const url = `/api/v2/submissions?user=${username}`;
+        const url = `/proxy/https://dmoj.ca/api/v2/submissions?user=${username}`;
 
         fetch(url)
             .then(res => res.json())

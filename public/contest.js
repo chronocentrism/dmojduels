@@ -137,7 +137,7 @@ function update(idx) {
     }
 
     const username = users[idx];
-    const url = `/api/v2/user/${username}`;
+    const url = `/proxy/https://dmoj.ca/api/v2/user/${username}`;
 
     fetch(url)
         .then(res => res.json())
@@ -261,7 +261,7 @@ function displayToast(type, text) {
 
 async function validfyInfo(cType,content){
     if(cType == "user"){
-        const url = `/api/v2/user/${encodeURIComponent(username)}`;
+        const url = `/proxy/https://dmoj.ca/api/v2/user/${encodeURIComponent(username)}`;
         try {
             const res = await fetch(url);
 
@@ -282,7 +282,7 @@ async function validfyInfo(cType,content){
             return false;
         }
     }else if(cType == "problem"){
-        const url = `/api/v2/problem/${encodeURIComponent(content)}`;
+        const url = `/proxy/https://dmoj.ca/api/v2/problem/${encodeURIComponent(content)}`;
         try {
             const res = await fetch(url);
 

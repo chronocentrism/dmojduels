@@ -17,10 +17,16 @@ const proxy = cors_proxy.createServer({
   requireHeader: [],
   removeHeaders: ["cookie", "cookie2"]
 });
-
 // Mount proxy under /proxy/*
 app.use("/proxy", (req, res) => {
-  req.url = req.url.replace(/^\/proxy/, ""); // strip the /proxy prefix
+  // Strip the /proxy prefix
+  req.url = req.url.replace(/^\/proxy/, "");
+
+  // If request is going to DMOJ, inject Authorization header
+  if (req.url.includes("dmoj.ca")) {
+    req.headers["Authorization"] = `Bearer ${DMOJ_AUTH_KEY}`;
+  }
+
   proxy.emit("request", req, res);
 });
 
