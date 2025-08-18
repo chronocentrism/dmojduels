@@ -90,6 +90,10 @@ async function createContest() {
         creatingContest = true;
         try {
             const name = document.querySelector(".create-contest-name").value;
+            const date = document.querySelector(".create-contest-date").value;
+            console.log(date);
+
+
             const res = await fetch("/getnewcid", { method: "POST" });
             if (!res.ok) throw new Error("Failed to get new ID");
             

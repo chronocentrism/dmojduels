@@ -15,6 +15,8 @@
     <div class="container">
         <h1>Contest Dashboard</h1>
 
+        <input type="button" value="Create Contest" class="create-contest-btn" onclick="showCreateContest()">
+
         <div class="title">Ongoing Contests</div>
         <div class="ongoing">
 
@@ -29,8 +31,6 @@
         <div class="past">
 
         </div>
-
-        <input type="button" value="Create Contest" class="create-contest-btn" onclick="showCreateContest()">
     </div>
     
     <div class="create-container">
@@ -41,6 +41,7 @@
         <input type="date" class="create-contest-date">
         <input type="time" class="create-contest-time">
         <br>
+        <div>Enter in EST (Eastern Time)</div>
         <input type="button" value="Create!" class="contest-final-create" onclick="createContest()">
     </div>
 </body>
