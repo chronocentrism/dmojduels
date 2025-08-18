@@ -6,12 +6,14 @@ const path = require('path');
 
 const cors_proxy = require('cors-anywhere');
 
+
+const PORTY = process.env.PORT || 6969;
 cors_proxy.createServer({
     originWhitelist: [], // Allow all origins
     requireHeader: [],
     removeHeaders: ['cookie', 'cookie2']
-}).listen(6969, '0.0.0.0', () => {
-    console.log('CORS Anywhere running on http://localhost:6969');
+}).listen(PORTY, '0.0.0.0', () => {
+    console.log(`CORS Anywhere running on ${PORT}`);
 });
 
 
