@@ -43,7 +43,7 @@ let contestStarted = false;
 
 let admins;
 
-const dmoj_auth_key = "AAIeDCfzfW1MEk1uYn7Fc54bW0Ib3kYnGuuHjnYW3LKDNrFj"
+const dmoj_auth_key = ""
 
 
 
