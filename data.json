@@ -17,6 +17,18 @@
       "problems": [
         "a4b1"
       ]
+    },
+    {
+      "name": "RICKY DO YOUR WORK",
+      "status": "upcoming",
+      "admins": [
+        "As_dm"
+      ],
+      "users": [],
+      "start-time": "2025-08-17T23:00:00-04:00",
+      "end-time": "2025-08-18T04:00:00.000-04:00",
+      "problems": [],
+      "id": "upyvwjwfl1vwretuv"
     }
   ],
   "comments": [

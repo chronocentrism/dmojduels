@@ -98,6 +98,11 @@ async function createContest() {
                 return;
             }
 
+            let combined = `${date}T${time}:00-04:00`;
+            let ending_time = new Date(new Date(combined).getTime() + duration * 60000);
+            let iso = ending_time.toISOString();
+            let endFormatted = iso.replace("Z", "-04:00");
+
             const res = await fetch("/getnewcid", { method: "POST" });
             if (!res.ok) throw new Error("Failed to get new ID");
             
@@ -112,12 +117,12 @@ async function createContest() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     name: name,
-                    //id: id,
+                    //id: id, <= Added in server.js
                     status: "upcoming",
                     admins: [localStorage.getItem("handle")],
                     users: [],
-                    "start-time": date + " " + time,
-                    "end-time": "",
+                    "start-time": combined,
+                    "end-time": endFormatted,
                     problems: []
                 })
             });
