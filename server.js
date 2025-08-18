@@ -8,7 +8,7 @@ const path = require('path');
 function getRandomString(){
     let alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
     let id = "";
-    let amount = Math.floor(Math.random() * 24);
+    let amount = Math.ceil(Math.random() * 24);
     for (let i=0; i<amount; i++) {
         id += alphabet[Math.floor(Math.random()*alphabet.length)];
     }
@@ -46,9 +46,9 @@ app.get('/', (req, res) => {
 });
 
 app.post('/getnewcid',async (req,res) =>{
-     try {
+    try {
         let cid = await generateContestID(); // generateContestID returns a Promise
-        res.json({ new_id: cid });
+        res.json({ "new_id": cid });
     } catch (err) {
         console.log(err)
         res.status(500).json({ error: 'Could not generate contest ID' });

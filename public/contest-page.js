@@ -92,8 +92,9 @@ async function createContest() {
             const name = document.querySelector(".create-contest-name").value;
             const date = document.querySelector(".create-contest-date").value;
             const time = document.querySelector(".create-contest-time").value;
+            const duration = document.querySelector(".create-contest-duration").value;
 
-            if (name == "" || date == "" || time == "") {
+            if (name == "" || date == "" || time == "" || duration == "") {
                 return;
             }
 
