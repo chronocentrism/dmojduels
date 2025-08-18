@@ -476,8 +476,9 @@ inty = setInterval(() => {
 
 // Time
 
-function timeUntil(time, curDate) {
-    let diff = time - curDate;
+
+function timeUntil(curDate) {
+    let diff = contestEnd - curDate;
     if (diff <= 0) return { d:0,h:0,m:0,s:0 };
     let d = Math.floor(diff / 864e5);        // days
     let h = Math.floor(diff / 36e5) % 24;    // hours
@@ -485,6 +486,7 @@ function timeUntil(time, curDate) {
     let s = Math.floor(diff / 1e3) % 60;     // seconds
     return { d, h, m, s };
 }
+
 
 // We have to repeatedly update the amount of time left in the contest
 inty2 = setInterval(() => {
