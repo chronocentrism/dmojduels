@@ -23,6 +23,51 @@
       "end-time": "2025-08-18T18:00:00-04:00",
       "problems": [],
       "id": "m"
+    },
+    {
+      "name": "RICKY DO YOUR WORK",
+      "status": "upcoming",
+      "admins": [
+        "As_dm"
+      ],
+      "users": [
+        "0id"
+      ],
+      "start-time": "2025-08-18T00:10:00-04:00",
+      "end-time": "2025-08-18T01:19:00-04:00",
+      "problems": [
+        "aplusb",
+        "a4b1",
+        "ccc00s2",
+        "ccc00s3",
+        "ds1",
+        "ds2"
+      ],
+      "id": "ccff28lgdw29"
+    },
+    {
+      "name": "This contest should be upcoming",
+      "status": "upcoming",
+      "admins": [
+        "As_dm"
+      ],
+      "users": [],
+      "start-time": "2025-08-18T00:17:00-04:00",
+      "end-time": "2025-08-18T00:18:00-04:00",
+      "problems": [],
+      "id": "in8mesqronmrmyh951"
+    },
+    {
+      "name": "This should also be upcoming",
+      "status": "upcoming",
+      "admins": [
+        "As_dm"
+      ],
+      "users": [],
+      "start-time": "2025-08-18T00:18:00-04:00",
+      "end-time": "2025-08-18T00:19:00-04:00",
+      "problems": [],
+      "id": "a61su8sy2jbhfpnm"
     }
   ],
   "comments": [

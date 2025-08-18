@@ -173,12 +173,18 @@ fetch("/data")
                 </span>
             `
 
-            if (contestStatus == "ongoing") {
-                document.querySelector(".ongoing").append(el);
-            } else if (contestStatus == "upcoming") {
+            // We need to check if the contest is ongoing, upcoming, or past by comparing the times
+
+            let startingTime = new Date(contestList[i]["start-time"]);
+            let endingTime = new Date(contestList[i]["end-time"]);
+            let curTime = new Date();
+
+            if (curTime < startingTime) {
                 document.querySelector(".upcoming").append(el);
-            } else {
+            } else if (curTime > endingTime) {
                 document.querySelector(".past").append(el);
+            } else {
+                document.querySelector(".ongoing").append(el);
             }
         }
     })
