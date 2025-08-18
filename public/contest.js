@@ -472,9 +472,8 @@ inty = setInterval(() => {
 
 // Time
 
-
-function timeUntil(curDate) {
-    let diff = contestEnd - curDate;
+function timeUntil(time, curDate) {
+    let diff = time - curDate;
     if (diff <= 0) return { d:0,h:0,m:0,s:0 };
     let d = Math.floor(diff / 864e5);        // days
     let h = Math.floor(diff / 36e5) % 24;    // hours
@@ -483,9 +482,20 @@ function timeUntil(curDate) {
     return { d, h, m, s };
 }
 
-
 // We have to repeatedly update the amount of time left in the contest
 inty2 = setInterval(() => {
-    let tmp = timeUntil(new Date());
+    if (new Date() < contestStart) {
+        document.querySelector(".contest-status").innerText = "Contest starts in:";
+        let tmp = timeUntil(contestStart, new Date());
+        document.querySelector(".time-remaining").innerText = `${tmp.d}d ${tmp.h}h ${tmp.m}m ${tmp.s}s`
+    } else if (new Date() > contestEnd) {
+        document.querySelector(".contest-status").innerText = "Contest Ended!";
+        let tmp = timeUntil(contestEnd, new Date());
+        document.querySelector(".time-remaining").innerText = `${tmp.d}d ${tmp.h}h ${tmp.m}m ${tmp.s}s`
+    } else {
+        document.querySelector(".contest-status").innerText = "Contest ends in:";
+        let tmp = timeUntil(contestEnd, new Date());
+        document.querySelector(".time-remaining").innerText = `${tmp.d}d ${tmp.h}h ${tmp.m}m ${tmp.s}s`
+    }
     document.querySelector(".time-remaining").innerText = `${tmp.d}d ${tmp.h}h ${tmp.m}m ${tmp.s}s`
 }, 1000)
