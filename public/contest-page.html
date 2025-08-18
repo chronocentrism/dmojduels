@@ -30,8 +30,18 @@
 
         </div>
 
-        <input type="button" value="Create Contest" class="create-contest-btn" onclick="createContest()">
+        <input type="button" value="Create Contest" class="create-contest-btn" onclick="showCreateContest()">
     </div>
     
+    <div class="create-container">
+        <h1>Create a contest</h1>
+        <br class="bigbreak">
+        <input type="text" class="create-contest-name" placeholder="Enter the contest name">
+        <br>
+        <input type="date" class="create-contest-date">
+        <input type="time" class="create-contest-time">
+        <br>
+        <input type="button" value="Create!" class="contest-final-create" onclick="createContest()">
+    </div>
 </body>
 </html>

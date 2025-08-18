@@ -77,13 +77,19 @@ if (localStorage.getItem("handle") === null) {
 }
 
 
+
+
+function showCreateContest() {
+    document.querySelector(".create-container").style.display = "initial";
+}
+
 // Function to create the contest
 var creatingContest = false // debounce
 async function createContest() {
     if (!creatingContest) {
         creatingContest = true;
         try {
-            const name = prompt("What is the contest name?");
+            const name = document.querySelector(".create-contest-name").value;
             const res = await fetch("/getnewcid", { method: "POST" });
             if (!res.ok) throw new Error("Failed to get new ID");
             
