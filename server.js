@@ -30,8 +30,9 @@ app.use("/proxy", async (req, res) => {
 
     // Make the request to DMOJ with auth header
     const response = await fetch(targetUrl, {
+      method: 'GET',
       headers: {
-        "Authorization": `Bearer ${DMOJ_AUTH_KEY}`,
+        "Authorization": `Bearer ${DMOJ_AUTH_KEY}`
       },
     });
 
