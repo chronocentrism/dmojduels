@@ -1,8 +1,31 @@
 {
-    "contests": [
-        
-    ],
-    "comments": [
-        "put your comments here if you need to"
-    ]
+  "contests": [
+    {
+      "name": "Ricky pls dont ruin the website again",
+      "status": "upcoming",
+      "admins": [
+        "As_dm"
+      ],
+      "users": [],
+      "start-time": "2025-08-18T23:37:00-04:00",
+      "end-time": "2025-08-19T00:37:00-04:00",
+      "problems": [],
+      "id": "sobyea49t5xf6li5"
+    },
+    {
+      "name": "New contest start",
+      "status": "upcoming",
+      "admins": [
+        "As_dm"
+      ],
+      "users": [],
+      "start-time": "2025-08-18T23:40:00-04:00",
+      "end-time": "2025-08-19T00:40:00-04:00",
+      "problems": [],
+      "id": "5f545atz6tlc"
+    }
+  ],
+  "comments": [
+    "put your comments here if you need to"
+  ]
 }

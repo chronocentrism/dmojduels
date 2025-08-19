@@ -309,6 +309,7 @@ async function validfyInfo(cType,content){
 
 
 
+
 // button handling
 document.getElementById('add-input-bttn').onclick = () => {
     var prblm_str = document.getElementById('add-input').value
@@ -476,8 +477,8 @@ inty = setInterval(() => {
 // Time
 
 
-function timeUntil(curDate) {
-    let diff = contestEnd - curDate;
+function timeUntil(t, curDate) {
+    let diff = t - curDate;
     if (diff <= 0) return { d:0,h:0,m:0,s:0 };
     let d = Math.floor(diff / 864e5);        // days
     let h = Math.floor(diff / 36e5) % 24;    // hours
@@ -489,6 +490,9 @@ function timeUntil(curDate) {
 
 // We have to repeatedly update the amount of time left in the contest
 inty2 = setInterval(() => {
+    console.log("New date and contest start:::")
+    console.log(new Date());
+    console.log(contestStart);
     if (new Date() < contestStart) {
         document.querySelector(".contest-status").innerText = "Contest starts in:";
         let tmp = timeUntil(contestStart, new Date());
