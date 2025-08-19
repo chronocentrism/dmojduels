@@ -311,11 +311,13 @@ async function validfyInfo(cType,content){
 
 
 // button handling
-document.getElementById('add-input-bttn').onclick = () => {
+document.getElementById('add-input-bttn').onclick = async() => {
     var prblm_str = document.getElementById('add-input').value
     prblm_str = prblm_str.replace("https://dmoj.ca/problem/","").toLowerCase();
 
-    if (prblm_str == "" || prblm_str == null || validfyInfo("problem",prblm_str) != true){ 
+    const isValid = await validfyInfo("problem",prblm_str)
+
+    if (prblm_str == "" || prblm_str == null || isValid != true){ 
         displayToast("Notice", `Invalid Problem ID / Link.`)
         return;
     }
@@ -343,11 +345,13 @@ document.getElementById('add-input-bttn').onclick = () => {
     )
 }
 
-document.getElementById('remove-input-bttn').onclick = () => {
+document.getElementById('remove-input-bttn').onclick = async () => {
     var prblm_str = document.getElementById('remove-input').value
     prblm_str = prblm_str.replace("https://dmoj.ca/problem/","").toLowerCase();
 
-    if (prblm_str == "" || prblm_str == null || validfyInfo("problem",prblm_str) != true){ 
+    const isValid = await validfyInfo("problem",prblm_str)
+
+    if (prblm_str == "" || prblm_str == null || isValid != true){ 
         displayToast("Notice", `Invalid Problem ID / Link.`)
         return;
     }
@@ -376,12 +380,14 @@ document.getElementById('remove-input-bttn').onclick = () => {
 
 }
 
-document.getElementById('add-participant-bttn').onclick = () => {
+document.getElementById('add-participant-bttn').onclick = async () => {
     console.log("Button click")
     var user_str = document.getElementById('add-participant').value
     user_str = user_str.replace("https://dmoj.ca/user/","");
 
-    if (user_str == "" || user_str == null || validfyInfo("user",user_str) != true){ 
+    const isValid = await validfyInfo("user",user_str)
+
+    if (user_str == "" || user_str == null || isValid != true){ 
         displayToast("Notice", `Invalid User ID / Link.`)
         return;
     }
@@ -410,11 +416,13 @@ document.getElementById('add-participant-bttn').onclick = () => {
 
 }
 
-document.getElementById('remove-participant-bttn').onclick = () => {
+document.getElementById('remove-participant-bttn').onclick = async () => {
     var user_str = document.getElementById('remove-participant').value
     user_str = user_str.replace("https://dmoj.ca/user/","");
 
-    if (user_str == "" || user_str == null || validfyInfo("user",user_str) != true){ 
+    const isValid = await validfyInfo("user",user_str)
+
+    if (user_str == "" || user_str == null || isValid != true){ 
         displayToast("Notice", `Invalid User ID / Link.`)
         return;
     }
