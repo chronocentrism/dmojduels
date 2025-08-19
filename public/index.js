@@ -20,8 +20,6 @@ particlesJS("particles-js", {
 // Connection system
 // Make user submit to some problem
 
-problems = ["aplusb", "helloworld", "ccc00s1", "a4b1"]
-
 function showel() {
     // If they clicked and it's already logged in, then log out
     if (localStorage.getItem("handle") !== null) {
@@ -33,7 +31,6 @@ function showel() {
 }
 
 function generate() {
-    let prob = problems[Math.floor(Math.random() * problems.length)];
     document.querySelector(".submit-text").innerHTML = "Using your account, submit a solution to any problem IN THE LANGUAGE NASM64. Checks automatically every 10 seconds.";
     document.querySelector(".txt-input").disabled = true;
     document.querySelector(".btn-input").disabled = true;

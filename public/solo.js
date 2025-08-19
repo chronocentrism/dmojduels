@@ -40,6 +40,7 @@ particlesJS("particles-js", {
     retina_detect: true
 });
 
+/*
 
 async function addContest() {
     // const createRes = await fetch("/create", {
@@ -121,3 +122,4 @@ function setDifficulty(d) {
 
     createContest(localStorage.getItem("distribution"));
 }
+    */

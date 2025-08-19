@@ -266,16 +266,16 @@ async function validfyInfo(cType,content){
             const res = await fetch(url);
 
             if (res.ok) {
-            const data = await res.json();
-            console.log("User exists:", data.data.object.username);
-            return true;
+                const data = await res.json();
+                console.log("User exists:", data.data.object.username);
+                return true;
             } else if (res.status === 404) {
-            console.log("User not found.");
-            return false;
+                console.log("User not found.");
+                return false;
             } else {
-            const errData = await res.json().catch(() => null);
-            console.error("Error:", errData?.error?.message || res.statusText);
-            return false;
+                const errData = await res.json().catch(() => null);
+                console.error("Error:", errData?.error?.message || res.statusText);
+                return false;
             }
         } catch (err) {
             console.error("Network error:", err);
@@ -340,13 +340,6 @@ document.getElementById('add-input-bttn').onclick = () => {
             fetchData()
         }
     )
-
-    //if (!problems.includes(prblm_str)){
-        //problems.push(prblm_str);
-        
-    //} else {
-        //displayToast("Notice", "Problem already exists in contest!");
-    //}
 }
 
 document.getElementById('remove-input-bttn').onclick = () => {
@@ -380,14 +373,6 @@ document.getElementById('remove-input-bttn').onclick = () => {
         }
     )
 
-
-    //const prblm_idx = problems.indexOf(prblm_str)
-    //if (prblm_idx!=-1){
-        //problems.splice(prblm_idx,1)
-         
-    //} else {
-     //   displayToast("Notice", "Requested problem does not exist in contest.");
-    //}
 }
 
 document.getElementById('add-participant-bttn').onclick = () => {
@@ -421,20 +406,12 @@ document.getElementById('add-participant-bttn').onclick = () => {
             fetchData()
         }
     )
-    //if (!users.includes(user_str)){
-        //users.push(user_str);
 
-        
-
-        
-        
-    //}
 }
 
 document.getElementById('remove-participant-bttn').onclick = () => {
     var user_str = document.getElementById('remove-participant').value
     user_str = user_str.replace("https://dmoj.ca/user/","");
-    //const user_idx = users.indexOf(user_str)
 
     if (user_str == "" || user_str == null || validfyInfo("user",user_str) != true){ 
         displayToast("Notice", `Invalid User ID / Link.`)
@@ -463,16 +440,6 @@ document.getElementById('remove-participant-bttn').onclick = () => {
         }
     )
     
-    
-    //if (user_idx!=-1){
-       
-        //users.splice(user_idx,1)
-
-        
-        
-    //} else {
-        //displayToast("Notice", `Participant ${user_str} is not a participant of this contest.`)
-    //}
 }
 
 var update_db = false;
