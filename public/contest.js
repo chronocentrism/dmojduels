@@ -509,5 +509,4 @@ inty2 = setInterval(() => {
         document.querySelector(".time-remaining").innerText = `${tmp.d}d ${tmp.h}h ${tmp.m}m ${tmp.s}s`
         document.querySelector(".container").style.display = "flex";
     }
-    document.querySelector(".time-remaining").innerText = `${tmp.d}d ${tmp.h}h ${tmp.m}m ${tmp.s}s`
 }, 1000)
