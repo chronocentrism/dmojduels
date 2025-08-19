@@ -261,7 +261,7 @@ function displayToast(type, text) {
 
 async function validfyInfo(cType,content){
     if(cType == "user"){
-        const url = `/proxy/https://dmoj.ca/api/v2/user/${encodeURIComponent(username)}`;
+        const url = `/proxy/https://dmoj.ca/api/v2/user/${encodeURIComponent(content)}`;
         try {
             const res = await fetch(url);
 
